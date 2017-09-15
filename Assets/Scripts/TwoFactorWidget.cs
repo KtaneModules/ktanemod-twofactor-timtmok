@@ -37,7 +37,7 @@ public class TwoFactorWidget : MonoBehaviour
 			_timeElapsed = 0f;
 			UpdateKey();
 		}
-	    TimeRemainingText.text = string.Format("{0,4}", (int)(TimerLength - _timeElapsed)) + ".";
+	    TimeRemainingText.text = string.Format("{0,3}", (int)(TimerLength - _timeElapsed)) + ".";
     }
 
 	private void Activate()
