@@ -6,5 +6,6 @@
   "HowToReset": "Changing this setting to true will reset ALL your setting back to default.",
 
   "TwoFactorTimerLength": 60,
-  "HowToUse1": "Sets the number of seconds before Two Factor code changes."
+  "HowToUse1": "Sets the number of seconds before Two Factor code changes.",
+  "HowToUse2": "Minimum = 30 seconds, Maximum = 999 seconds"
 }

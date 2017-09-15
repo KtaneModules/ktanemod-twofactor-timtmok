@@ -28,7 +28,9 @@ public class TwoFactorWidget : MonoBehaviour
 	    TimerLength = _modSettings.Settings.TwoFactorTimerLength;
 	    if (TimerLength < 30)
 	        TimerLength = 30;
-    }
+	    if (TimerLength > 999)
+	        TimerLength = 999;
+	}
 
 	void Update()
 	{

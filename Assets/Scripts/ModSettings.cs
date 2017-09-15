@@ -19,6 +19,7 @@ public class ModuleSettings
     public int TwoFactorTimerLength = 60;
 
     public string HowToUse1 = "Sets the number of seconds before Two Factor code changes.";
+    public string HowToUse2 = "Minimum = 30 seconds, Maximum = 999 seconds";
 }
 
 public class ModSettings
