@@ -11,7 +11,8 @@ public class TwoFactorWidget : MonoBehaviour
 	private int _key;
 	private float _timeElapsed;
 
-	private const float TimerLength = 60.0f;
+	private float TimerLength = 60.0f;
+    private ModSettings _modSettings;
 
 	public static string WidgetQueryTwofactor = "twofactor";
 	public static string WidgetTwofactorKey = "twofactor_key";
@@ -21,7 +22,13 @@ public class TwoFactorWidget : MonoBehaviour
 		GetComponent<KMWidget>().OnQueryRequest += GetQueryResponse;
 		GetComponent<KMWidget>().OnWidgetActivate += Activate;
 		GenerateKey();
-	}
+
+	    _modSettings = new ModSettings("TwoFactor");
+	    _modSettings.ReadSettings();
+	    TimerLength = _modSettings.Settings.TwoFactorTimerLength;
+	    if (TimerLength < 30)
+	        TimerLength = 30;
+    }
 
 	void Update()
 	{
