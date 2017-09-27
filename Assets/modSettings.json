@@ -1,0 +1,11 @@
+{
+  "SettingsVersion": 0,
+  "HowToUse0": "Don't Touch this value. It is used by the mod internally to determine if there are new settings to be saved.",
+
+  "ResetToDefault": false,
+  "HowToReset": "Changing this setting to true will reset ALL your setting back to default.",
+
+  "TwoFactorTimerLength": 60,
+  "HowToUse1": "Sets the number of seconds before Two Factor code changes.",
+  "HowToUse2": "Minimum = 30 seconds, Maximum = 999 seconds"
+}

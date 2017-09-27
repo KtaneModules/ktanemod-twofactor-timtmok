@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -13,18 +13,28 @@ public class TwoFactorWidget : MonoBehaviour
 	private int _key;
 	private float _timeElapsed;
 
-	private const float TimerLength = 60.0f;
+	private float TimerLength = 60.0f;
+    private ModSettings _modSettings;
 
 	public static string WidgetQueryTwofactor = "twofactor";
 	public static string WidgetTwofactorKey = "twofactor_key";
 
 	void Awake ()
 	{
-		GetComponent<KMWidget>().OnQueryRequest += GetQueryResponse;
-		GetComponent<KMWidget>().OnWidgetActivate += Activate;
-		GenerateKey();
-	    KeyText.text = "";
+	    Debug.Log("[TwoFactorWidget] Two Factor present");
+      GetComponent<KMWidget>().OnQueryRequest += GetQueryResponse;
+      GetComponent<KMWidget>().OnWidgetActivate += Activate;
+      GenerateKey();
+      KeyText.text = "";
 	    TimeRemainingText.text = "";
+
+	    _modSettings = new ModSettings("TwoFactor");
+	    _modSettings.ReadSettings();
+	    TimerLength = _modSettings.Settings.TwoFactorTimerLength;
+	    if (TimerLength < 30)
+	        TimerLength = 30;
+	    if (TimerLength > 999)
+	        TimerLength = 999;
 	}
 
 	void Update()
