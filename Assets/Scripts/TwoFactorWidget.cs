@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -6,8 +6,10 @@ using Random = UnityEngine.Random;
 public class TwoFactorWidget : MonoBehaviour
 {
 	public TextMesh KeyText;
+    public TextMesh TimeRemainingText;
 	public AudioClip Notify;
 
+    private bool _activated;
 	private int _key;
 	private float _timeElapsed;
 
@@ -20,9 +22,11 @@ public class TwoFactorWidget : MonoBehaviour
 	void Awake ()
 	{
 	    Debug.Log("[TwoFactorWidget] Two Factor present");
-        GetComponent<KMWidget>().OnQueryRequest += GetQueryResponse;
-		GetComponent<KMWidget>().OnWidgetActivate += Activate;
-		GenerateKey();
+      GetComponent<KMWidget>().OnQueryRequest += GetQueryResponse;
+      GetComponent<KMWidget>().OnWidgetActivate += Activate;
+      GenerateKey();
+      KeyText.text = "";
+	    TimeRemainingText.text = "";
 
 	    _modSettings = new ModSettings("TwoFactor");
 	    _modSettings.ReadSettings();
@@ -35,20 +39,22 @@ public class TwoFactorWidget : MonoBehaviour
 
 	void Update()
 	{
+	    if (!_activated) return;
 		_timeElapsed += Time.deltaTime;
-
-		// ReSharper disable once InvertIf
-		if (_timeElapsed >= TimerLength)
+        // ReSharper disable once InvertIf
+        if (_timeElapsed >= TimerLength)
 		{
 			_timeElapsed = 0f;
 			UpdateKey();
 		}
-	}
+	    TimeRemainingText.text = string.Format("{0,3}", (int)(TimerLength - _timeElapsed)) + ".";
+    }
 
 	private void Activate()
 	{
 		_timeElapsed = 0f;
 		DisplayKey();
+	    _activated = true;
 	}
 
 	void UpdateKey()
@@ -65,7 +71,7 @@ public class TwoFactorWidget : MonoBehaviour
 
 	private void DisplayKey()
 	{
-		KeyText.text = _key.ToString() + ".";
+		KeyText.text = string.Format("{0,6}", _key) + ".";
 	}
 
 	private string GetQueryResponse(string querykey, string queryinfo)
