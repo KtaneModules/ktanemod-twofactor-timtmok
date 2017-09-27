@@ -18,7 +18,8 @@ public class TwoFactorWidget : MonoBehaviour
 
 	void Awake ()
 	{
-		GetComponent<KMWidget>().OnQueryRequest += GetQueryResponse;
+	    Debug.Log("[TwoFactorWidget] Two Factor present");
+        GetComponent<KMWidget>().OnQueryRequest += GetQueryResponse;
 		GetComponent<KMWidget>().OnWidgetActivate += Activate;
 		GenerateKey();
 	}
